@@ -23,7 +23,9 @@ nav .s1 {
 }
 
 nav img {
-    width: 100px;
+    width: 90px;
+    padding: 7px;
+    margin-top: -2%;
 }
 
 nav .searchbar {
@@ -35,6 +37,7 @@ nav .searchbar {
     padding: 5px;
     justify-content: space-between;
     width: 50%;
+    margin-top: -2%;
 }
 
 nav .searchbar input {
@@ -65,11 +68,13 @@ nav .s1 .right {
     display: flex;
     justify-content: space-between;gap: 10px;
     align-items: center;
+    margin-top: -2%;
 }
 
 nav .cart {
     position: relative;
     margin: 0px 20px;
+    
 }
 
 nav .cart .qty {
@@ -86,6 +91,7 @@ nav .cart .qty {
     align-items: center;
     font-size: 12px;
     text-align: center;
+    
 }
 
 nav .s2 {
@@ -94,12 +100,14 @@ nav .s2 {
     align-items: center;
     padding: 5px;
     gap: 3%;
+    margin-top: -2%;
+    margin-bottom: -1%;
 }
 
 nav .s2 a {
     text-decoration: none;
     color: black;
-    font-size: 14px;
+    font-size: 16px;
     cursor: pointer;
 }
 
