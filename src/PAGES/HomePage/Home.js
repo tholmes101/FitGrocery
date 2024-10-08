@@ -15,7 +15,7 @@ const Home = () => {
         <ProductSidebar/>
         <Footer1/>
         <Footer2/>
-        Home</div>
+        </div>
   )
 }
 
