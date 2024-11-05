@@ -1,0 +1,51 @@
+.extrapage {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.pgleft {
+     display: flex;
+
+}
+
+.pgright {
+    display: flex;
+    flex-direction: row-reverse;
+    align-self: flex-end;
+}
+
+.pgcommon {
+    width: 50%;
+    margin: 80px;
+    align-items: center;
+    gap: 30px;
+    justify-content: space-between;
+    padding: 20px 0px;
+}
+
+.pgcommon div {
+    width: 45%;
+}
+
+.pgcommon img {
+
+    width: 100%;
+}
+.pgcommon div h1 {
+    font-size: 55px;
+    font-weight: 400;
+    color: var(--col1);
+    margin: 0 0 10px 0;
+    padding: 0;
+    letter-spacing: 1px;
+}
+
+.pgcommon div p {
+    font-size: 15px;
+    font-weight: 400;
+    color: rgb(36, 36,36);
+    margin: none;
+    padding: 0;
+    letter-spacing: 1px 
+}
