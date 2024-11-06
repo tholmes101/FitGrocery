@@ -102,13 +102,14 @@ const Home = () => {
         <BannerSlider/>
         <HomeCategories/>
         <ProductSidebar/>
+        <Footer1/>
+
         <div className='slidercont'>
           <ProductSlider products={products} categoryname='Related Products'/>
         </div>
         <div className='slidercont'>
           <ProductSlider products={products} categoryname='Explorer More'/>
         </div>
-        <Footer1/>
         <Footer2/>
         </div>
   )
