@@ -8,7 +8,7 @@ import veges from '../../ASSETS/veggies.jpg'
 const Login = () => {
   return (
     <div className='authpage'>
-        <Navbar />
+        <Navbar reloadnavbar={false}/>
         <div className='authcont'>
             <img src={veges} alt='veges' />
               <form className='authform'>

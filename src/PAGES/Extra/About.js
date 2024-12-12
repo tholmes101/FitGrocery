@@ -8,7 +8,7 @@ import './Extrapages.css'
 export const About = () => {
   return (
     <div className='extrapage'>
-      <Navbar />
+      <Navbar reloadnavbar={false}/>
       <SingleBanner
           heading="About Us"
           bannerimage='https://images.unsplash.com/photo-1543362906-acfc16c67564?q=80&w=1665&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'

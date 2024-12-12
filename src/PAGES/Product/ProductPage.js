@@ -9,6 +9,7 @@ import './ProductPage.css'
 import Footer1 from '../../COMPONENTS/Footer/Footer1'
 import Footer2 from '../../COMPONENTS/Footer/Footer2'
 import ProductSlider from '../../COMPONENTS/Product/ProductSlider'
+import { toast } from 'react-toastify'
 
 const ProductPage = () => {
   const { prodid } = useParams()
@@ -97,7 +98,7 @@ const ProductPage = () => {
         }
       ]
     }
-    if (temp.Code == 200) {
+    if (temp.Code === 200) {
       setimageset(temp.Data[0].ProductImage)
       setproductdata(temp.Data[0])
       setactiveimg(temp.Data[0].ProductImage[0])
@@ -105,7 +106,7 @@ const ProductPage = () => {
   }
   useEffect(() => {
     getproductdatabyid()
-    window.scroll(0,0)
+    window.scroll(0, 0)
   }, [])
   
   const[rating,setrating] = React.useState(0)
@@ -192,12 +193,53 @@ const ProductPage = () => {
         discountpercent: 12
     }  
 ]
+  const [reloadnavbar, setreloadnavbar] = React.useState(false)
+  const addtocart = ()=> {
+      let cart = JSON.parse(localStorage.getItem('cart'))
 
+      if (cart) {
+         // alert('1 item is alraady added to cart')
+         let itemincart = cart.find(item => item.productdata.ProductId === productdata.ProductId)
+         if(itemincart){
+               cart=cart.map(item=> {
+                  if(item.productdata.ProductId === productdata.ProductId){
+                      return {
+                         ...item,
+                         quantity: item.quantity + count
+                      }
+                  }
+                  else {
+                    return item
+                  }
+          })
+          localStorage.setItem('cart',JSON.stringify(cart))
+         }
+         else {
+            cart = [
+                ...cart,
+                {
+                  productdata,
+                  quantity: count
+                }
+            ]
+            localStorage.setItem('cart',JSON.stringify(cart))
+         }
+        }
+      else {
+        cart = [{
+              productdata,
+              quantity: count 
+            }]
+            localStorage.setItem('cart',JSON.stringify(cart))
+          }
+      //toast.success('Item added to cart')
+      setreloadnavbar(!reloadnavbar)
+  }
   return (
     <div className='productpage'>
       {/*<h1>Product id is - {prodid}</h1>*/}
 
-      <Navbar />
+      <Navbar reloadnavbar={reloadnavbar}/>
 
       <div className='pc1'>
         <Link to='/'>
@@ -222,7 +264,7 @@ const ProductPage = () => {
                           <img src={item.image}
                           alt=""
                            className={
-                              activeimg.id == item.id ? 'active' : ''
+                              activeimg.id === item.id ? 'active' : ''
                            }
                           />
                       </div>
@@ -266,7 +308,7 @@ const ProductPage = () => {
           <div className='btncont'>
             <button
               onClick={() => {
-                alert('Added to cart')
+                addtocart()
               }}
             >
               Add to Cart
