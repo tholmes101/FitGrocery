@@ -57,18 +57,20 @@ const ProductCard = ({data}) => {
 
   return (
     <div className='product'>
-        <div className='s1'>
-            <img src={data.productimage} alt={'no img'} />
-        </div>
+      
+            <div className='s1'>
+                <img src={data.ProductImage[0].image} alt={'no img'} />
+            </div>
+       
         <div className='s2'>
             <h3>
                 ${
-                    data.productprice - (data.productprice * data.discountpercent/ 100)
+                    data.ProductPrice - (data.ProductPrice * data.ProductDiscount/ 100)
                 }
-                <span>${data.productprice}</span>
+                <span>${data.ProductPrice}</span>
             </h3>
             <p>
-                {data.productname}
+                {data.ProductName}
             </p>
 
         </div>
