@@ -52,7 +52,7 @@ const Cart = () => {
       <div className='cart'>
         <div className='progress'>
           {
-            active == 1 ?
+            active === 1 ?
               <div className='c11'
                 onClick={() => {
                   cartdata.length > 0 && checklogin() && setactive(1)
@@ -79,7 +79,7 @@ const Cart = () => {
 
 
           {
-            active == 2 ?
+            active === 2 ?
               <div className='c11'
                 onClick={() => {
                   cartdata.length > 0 && checklogin() && setactive(2)
@@ -109,7 +109,7 @@ const Cart = () => {
           }
 
           {
-            active == 3 ?
+            active ===3 ?
               <div className='c11'
                 onClick={() => {
                   cartdata.length > 0 && checklogin() && setactive(3)
@@ -137,7 +137,7 @@ const Cart = () => {
               </div>
           }
           {
-            active == 4 ?
+            active === 4 ?
               <div className='c11'
                 onClick={() => {
                   cartdata.length > 0 && checklogin() && setactive(4)
@@ -166,31 +166,116 @@ const Cart = () => {
           }
         </div>
         {
-          active == 1 &&
+          active === 1 &&
           <div className='cartcont'>
-              <p>Cart cont</p>
+              {
+                cartdata.length > 0 ?
+                <table className='carttable'>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {
+                        cartdata.map((item,index)=> {
+                          return (
+                            <tr key={index} className="cartitemrow">
+                              <td>
+                                <div classNme='cartproduct'
+                                onClick={() => {
+                                  window.location.href = `/product/${item.productdata.ProductId}`
+                                }}
+                                >
+                                <img src={item.productdata.ProductImage[0].image}
+                                  alt={item.productdata.ProductName} />
+                                  <p>{
+                                     item.productdata.ProductName
+                                    }
+                                  </p>
+                                </div>
+                              </td>
+
+                              <td>
+
+                              </td>
+                            </tr>
+                          )
+                        })
+                      }
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td className='totaltableleft'>SubTotal</td>
+                        <td className='totaltableright'>
+                            {subtotal.toFixed(2)}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td className='totaltableleft'>Shipping</td>
+                        <td className='totaltableright'>
+                            {shipping.toFixed(2)}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td className='totaltableleft'>Total</td>
+                        <td className='totaltableright'>
+                            {(subtotal + shipping).toFixed(2)}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td className='totaltableleft'>Tax</td>
+                        <td className='totaltableright'>
+                            {tax.toFixed(2)}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td className='totaltableleft'>NetTotal</td>
+                        <td className='totaltableright'>
+                            {(tax+ subtotal + shipping).toFixed(2)}
+                        </td>
+                      </tr>
+                    </tbody>
+                </table>
+                :
+                <div className='emptycart'>
+                    <p>Your cart is empty</p>
+                 </div>
+              }
           </div>
         }
         {
-          active == 2 &&
+          active === 2 &&
           <div className='shippingcont'>
               <p>Shipping cont</p>
           </div>
         }
         {
-          active == 3 &&
+          active === 3 &&
           <div className='paymentcont'>
               <p>Payment cont</p>
           </div>
         }
         {
-          active == 4 &&
+          active === 4 &&
           <div className='ordersuccessfull'>
               <p>Order successfull</p>
           </div>
         }
         {
-          active == 1 && cartdata.length > 0 &&
+          active === 1 && cartdata.length > 0 &&
           <div className='btns'>
               <button className='nextbtn'
                   onClick={() => {
@@ -201,7 +286,7 @@ const Cart = () => {
         }
 
         {
-          active == 2 && 
+          active === 2 && 
           <div className='btns'>
               <button className='backbtn'
                   onClick={() => {
@@ -216,7 +301,7 @@ const Cart = () => {
           </div>
         }
         {
-          active == 3 && 
+          active === 3 && 
           <div className='btns'>
               <button className='backbtn'
                   onClick={() => {
@@ -231,7 +316,7 @@ const Cart = () => {
           </div>
         }
         {
-          active == 4 && 
+          active === 4 && 
           <div className='btns'>
              {/* <button className='backbtn'
                   onClick={() => {
