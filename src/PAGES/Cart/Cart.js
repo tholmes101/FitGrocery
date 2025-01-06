@@ -5,6 +5,7 @@ import Footer2 from '../../COMPONENTS/Footer/Footer2'
 import SingleBanner from '../../COMPONENTS/Banners/SingleBanner'
 import './Cart.css'
 import './Progress.css'
+import './CartContainer.css'
 
 const Cart = () => {
   const [cartdata, setcartdata] = React.useState([])
@@ -27,9 +28,11 @@ const Cart = () => {
       setsubtotal(tempsubtotal)
       setshipping(80)
       settax(tempsubtotal * 0.18 + 80 * 0.10)
+      setreloadnavbar(!reloadnavbar)
     }
     else {
       console.log("Cart is empty")
+      setreloadnavbar(!reloadnavbar)
     }
   }
 
@@ -41,10 +44,17 @@ const Cart = () => {
     return true
   }
 
-
+  const [reloadnavbar, setreloadnavbar] = React.useState(false)
+  const removeitemfromcart = (index)=> {
+    let temp = [...cartdata]
+    temp.splice(index,1)
+    setcartdata(temp)
+    localStorage.setItem('cart',JSON.stringify(temp))
+    getcartitemsfromlocalstorage()
+  }
   return (
     <div>
-        <Navbar />
+        <Navbar reloadnavbar={reloadnavbar}/>
         <SingleBanner
           heading="My Cart"
           bannerimage='https://images.unsplash.com/photo-1543362906-acfc16c67564?q=80&w=1665&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
@@ -201,7 +211,57 @@ const Cart = () => {
                               </td>
 
                               <td>
+                                  <div className='quantity'>
+                                    <button className='minus'
+                                     onClick={() => {
+                                      let newcartdata = [...cartdata]
 
+                                      if(newcartdata[index].quantity > 1){
+                                        newcartdata[index].quantity -= 1
+                                        setcartdata(newcartdata)
+                                        localStorage.setItem('cart', JSON.stringify(newcartdata))
+                                        getcartitemsfromlocalstorage()
+                                      }
+                                     }} 
+                                    >-</button>
+                                    <span>{item.quantity}</span>
+                                    <button className='plus'
+                                     onClick={() => {
+                                      let newcartdata = [...cartdata]
+                                      newcartdata[index].quantity += 1
+                                        setcartdata(newcartdata)
+                                        localStorage.setItem('cart', JSON.stringify(newcartdata))
+                                        getcartitemsfromlocalstorage()
+                                     }}
+                                    >+</button>
+                                  </div>
+                              </td>
+
+                              <td>
+                                <p>
+                                  $ {item.productdata.SalesPrice ? item.productdata.SalesPrice.toFixed(2) : 0.00}
+                                </p>
+                              </td>
+
+                              <td>
+                                <p>
+                                  $ {
+                                    (item.productdata.SalesPrice * item.quantity).toFixed(2)
+                                  }
+                                </p>
+                              </td>
+
+                              <td>
+                                <div className='delbtn'
+                                  onClick={()=> {
+                                    removeitemfromcart(index)
+                                  }}
+                                >
+                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                  </svg>
+
+                                </div>
                               </td>
                             </tr>
                           )
@@ -212,7 +272,7 @@ const Cart = () => {
                         <td></td>
                         <td className='totaltableleft'>SubTotal</td>
                         <td className='totaltableright'>
-                            {subtotal.toFixed(2)}
+                          $ {subtotal.toFixed(2)}
                         </td>
                       </tr>
                       <tr>
@@ -220,7 +280,7 @@ const Cart = () => {
                         <td></td>
                         <td className='totaltableleft'>Shipping</td>
                         <td className='totaltableright'>
-                            {shipping.toFixed(2)}
+                          $ {shipping.toFixed(2)}
                         </td>
                       </tr>
                       <tr>
@@ -228,7 +288,7 @@ const Cart = () => {
                         <td></td>
                         <td className='totaltableleft'>Total</td>
                         <td className='totaltableright'>
-                            {(subtotal + shipping).toFixed(2)}
+                          $ {(subtotal + shipping).toFixed(2)}
                         </td>
                       </tr>
                       <tr>
@@ -236,7 +296,7 @@ const Cart = () => {
                         <td></td>
                         <td className='totaltableleft'>Tax</td>
                         <td className='totaltableright'>
-                            {tax.toFixed(2)}
+                          $ {tax.toFixed(2)}
                         </td>
                       </tr>
                       <tr>
@@ -244,14 +304,18 @@ const Cart = () => {
                         <td></td>
                         <td className='totaltableleft'>NetTotal</td>
                         <td className='totaltableright'>
-                            {(tax+ subtotal + shipping).toFixed(2)}
+                          $ {(tax+ subtotal + shipping).toFixed(2)}
                         </td>
                       </tr>
                     </tbody>
                 </table>
                 :
                 <div className='emptycart'>
-                    <p>Your cart is empty</p>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                  </svg>
+
+                  <p>Your cart is empty</p>
                  </div>
               }
           </div>
