@@ -7,13 +7,15 @@ import './Cart.css'
 import './Progress.css'
 import './CartContainer.css'
 import './ShippingContainer.css'
+import './PaymentContainer.css'
+import './OrderSuccessful.css'
 
 const Cart = () => {
   const [cartdata, setcartdata] = React.useState([])
   const [subtotal, setsubtotal] = React.useState(0)
   const [shipping, setshipping] = React.useState(0)
   const [tax, settax] = React.useState(0)
-  const [active, setactive] = React.useState(2)
+  const [active, setactive] = React.useState(1)
   const [deliverydate, setdeliverydate] = React.useState(
     new Date(new Date().getTime() + 2* 24 * 60 * 60 *1000).toISOString().split('T')[0]
   )
@@ -392,13 +394,43 @@ const Cart = () => {
         {
           active === 3 &&
           <div className='paymentcont'>
-              <p>Payment cont</p>
+              <h2 className='mainhead1'>Select Payment Method</h2>
+              <div className='paymenttypes'>
+                <div className='c1'>
+                  <input type='radio' name='payment' id='payment' />
+                  <img src='https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_111x69.jpg'
+                  alt='paypal' />
+                </div>
+                <div className='c1'>
+                  <input type='radio' name='payment' id='payment' />
+                  <img src='https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_111x69.jpg'
+                  alt='paypal' />
+                </div>
+                <div className='c1'>
+                  <input type='radio' name='payment' id='payment' />
+                  <img src='https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_111x69.jpg'
+                  alt='paypal' />
+                </div>
+              </div>
+              <div className='paymentagreement'>
+                <input type='checkbox' name='agreement' id='agreement' />
+                <label htmlfor='agreement'>I agree to the terms and conditions</label>
+              </div>
+
+              <div className='c2'>
+                <span>Net Total</span>
+                &nbsp;&nbsp;
+                <span>$ {(subtotal+tax+shipping).toFixed(2)}</span>
+              </div>
           </div>
         }
         {
           active === 4 &&
-          <div className='ordersuccessfull'>
-              <p>Order successfull</p>
+          <div className='ordersuccessful'>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+              </svg>
+              <h2 className='mainhead1'>Order Placed Successfully</h2>
           </div>
         }
         {
@@ -452,7 +484,8 @@ const Cart = () => {
                   >Back</button> */}
               <button className='nextbtn'
                   onClick={() => {
-                     alert('Order placed succcessfully')
+                    // alert('Order placed succcessfully')
+                    window.location.href = '/'
                   }}
                   >Go To Home</button>
           </div>
